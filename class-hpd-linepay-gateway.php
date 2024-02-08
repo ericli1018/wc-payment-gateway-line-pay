@@ -7,7 +7,8 @@ require_once( dirname( __FILE__ ) . '/class-hpd-linepay-client.php' );
 class HPD_LinePay_Gateway extends WC_Payment_Gateway {
     public function __construct() {
         $this->id = 'hpd_linepay';
-        $this->icon = plugin_dir_url( __FILE__ ) . 'assets/linepay_logo_new.png';
+        //$this->icon = plugin_dir_url( __FILE__ ) . 'assets/linepay_logo_new.png';
+        $this->icon = plugin_dir_url( __FILE__ ) . 'assets/linepay_logo_74x24.png';
         $this->has_fields = false;
         $this->method_title = __( 'LINE Pay', 'wc-payment-gateway-line-pay' );
         $this->method_description = __( 'Accept payments using LINE Pay.', 'wc-payment-gateway-line-pay' );
@@ -153,6 +154,7 @@ class HPD_LinePay_Gateway extends WC_Payment_Gateway {
         $transaction_id = $_GET[ 'transactionId' ];
 
         $results = get_posts( array(
+            'post_status' => 'wc-pending',
             'post_type' => 'shop_order',
             'meta_query' => array(
                 array( 'key' => '_hpd_linepay_transactionId', 'value' => $transaction_id ),
